@@ -1,5 +1,15 @@
 Deployed with [Netlify](https://weather-app-v2-by-ewelin.netlify.app/)
 
+# Setup
+
+Navigate to desired directory
+
+```
+git clone git@github.com:elloo/weather-app-v2.git
+npm i
+npm start
+```
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
