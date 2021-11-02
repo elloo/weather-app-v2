@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@visx/axis": "^2.2.2",
     "@visx/group": "^2.1.0",
     "@visx/scale": "^2.2.2",
     "@visx/shape": "^2.2.2",

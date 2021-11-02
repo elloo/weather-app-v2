@@ -1,16 +1,15 @@
-import { useLocation, useParams } from "react-router-dom";
-import { Group } from '@visx/group';
-import { Bar } from '@visx/shape';
-import { scaleLinear, scaleBand } from '@visx/scale';
+import { useLocation, useParams } from "react-router-dom"
+import { Group } from '@visx/group'
+import { Bar } from '@visx/shape'
+import { scaleLinear, scaleBand } from '@visx/scale'
+import { AxisRight, AxisBottom } from '@visx/axis'
 
-
-//TO-DO: Pass dailyData into this component for rendering
 export default function WeatherGraph(){
 
     const location = useLocation()
     const data = location.state.weatherChanges
 
-    const width = 500
+    const width = 400
     const height = 350
     const margin = { top: 20, bottom: 20, left: 20, right: 20 }
     
@@ -31,7 +30,7 @@ export default function WeatherGraph(){
     const yScale = scaleLinear({
       range: [yMax, 0],
       round: false,
-      domain: [0, Math.max(...data.map(y))],
+      domain: [Math.min(...data.map(y)) - 0.1, Math.max(...data.map(y))],
     })
     
     // Compose together the scale and accessor functions to get point functions
@@ -42,17 +41,35 @@ export default function WeatherGraph(){
     // Finally we'll embed it all in an SVG
     function BarGraph(props) {
       return (
-        <svg width={width} height={height}>
+        <svg width={500} height={500}>
           {data.map((d, i) => {
             const barHeight = yMax - yPoint(d);
             return (
               <Group key={`bar-${i}`}>
+
+                <AxisRight
+                scale={yScale}
+                top={0}
+                left={xMax}
+                label={'Temperature (°C)'}
+                stroke={'#1b1a1e'}
+                tickTextFill={'#1b1a1e'}
+                />
+
+                <AxisBottom
+                scale={xScale}
+                top={yMax}
+                label={'2400hr Time'}
+                stroke={'#1b1a1e'}
+                tickTextFill={'#1b1a1e'}
+                />
+
                 <Bar
                   x={xPoint(d)}
                   y={yMax - barHeight}
                   height={barHeight}
                   width={xScale.bandwidth()}
-                  fill="#fc2e1c"
+                  fill="orange"
                 />
               </Group>
             )
