@@ -29,7 +29,7 @@ export default function WeatherGraph(){
     })
     const yScale = scaleLinear({
       range: [yMax, 0],
-      round: false,
+      round: true,
       domain: [Math.min(...data.map(y)) - 0.1, Math.max(...data.map(y))],
     })
     
@@ -41,7 +41,7 @@ export default function WeatherGraph(){
     // Finally we'll embed it all in an SVG
     function BarGraph(props) {
       return (
-        <svg width={500} height={500}>
+        <svg width={width + 50} height={height + 50}>
           {data.map((d, i) => {
             const barHeight = yMax - yPoint(d);
             return (
