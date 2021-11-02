@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@visx/group": "^2.1.0",
-    "@visx/mock-data": "^2.1.2",
     "@visx/scale": "^2.2.2",
     "@visx/shape": "^2.2.2",
     "bootstrap": "^5.1.3",

@@ -1,5 +1,4 @@
 import { useLocation, useParams } from "react-router-dom";
-import { letterFrequency } from '@visx/mock-data';
 import { Group } from '@visx/group';
 import { Bar } from '@visx/shape';
 import { scaleLinear, scaleBand } from '@visx/scale';
@@ -15,7 +14,6 @@ export default function WeatherGraph(){
     const height = 350
     const margin = { top: 20, bottom: 20, left: 20, right: 20 }
     
-    // Then we'll create some bounds
     const xMax = width - margin.left - margin.right
     const yMax = height - margin.top - margin.bottom
     
@@ -26,13 +24,13 @@ export default function WeatherGraph(){
     // And then scale the graph by our data
     const xScale = scaleBand({
       range: [0, xMax],
-      round: true,
+      round: false,
       domain: data.map(x),
-      padding: 0.4,
+      padding: 0.1,
     })
     const yScale = scaleLinear({
       range: [yMax, 0],
-      round: true,
+      round: false,
       domain: [0, Math.max(...data.map(y))],
     })
     
