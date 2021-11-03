@@ -6,13 +6,16 @@ import { AxisRight, AxisBottom } from '@visx/axis'
 
 export default function WeatherGraph(){
 
+    // Graph made using example at https://github.com/airbnb/visx
     const location = useLocation()
     const data = location.state.weatherChanges
 
-    const width = 400
-    const height = 350
+    // Define the graph dimensions and margins
+    const width = 250
+    const height = 300
     const margin = { top: 20, bottom: 20, left: 20, right: 20 }
     
+    // Then we'll create some bounds
     const xMax = width - margin.left - margin.right
     const yMax = height - margin.top - margin.bottom
     
@@ -41,7 +44,7 @@ export default function WeatherGraph(){
     // Finally we'll embed it all in an SVG
     function BarGraph(props) {
       return (
-        <svg width={width + 50} height={height + 50}>
+        <svg width={width + 50} height={height}>
           {data.map((d, i) => {
             const barHeight = yMax - yPoint(d);
             return (
@@ -77,7 +80,7 @@ export default function WeatherGraph(){
         </svg>
       );
     }
-    
+      
     const { unixDt, dayName } = useParams()
     const date = new Date(unixDt * 1000)
     const months = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
