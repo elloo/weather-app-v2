@@ -4,9 +4,9 @@ import { Bar } from '@visx/shape'
 import { scaleLinear, scaleBand } from '@visx/scale'
 import { AxisRight, AxisBottom } from '@visx/axis'
 
+// Graph made using example at https://github.com/airbnb/visx
 export default function WeatherGraph(){
 
-    // Graph made using example at https://github.com/airbnb/visx
     const location = useLocation()
     const data = location.state.weatherChanges
 

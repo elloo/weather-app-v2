@@ -14,9 +14,9 @@ export default function WeatherBoard(){
   //TO-DO: Location search component - dropdown of Australian cities
   //TO-DO: Search history with location and time JSON server
   
-  const [currentCoords, setCurrentCoords] = useState({lat: -33.8688, lon: 151.2093})
-  const geoSuccess = (pos) => setCurrentCoords({lat: pos.coords.latitude, lon: pos.coords.longitude})
-  const geoError = (err) => {console.warn(`ERROR(${err.code}): ${err.message}`)}
+  const [weatherApi, setWeatherApi] = useState(`https://api.openweathermap.org/data/2.5/onecall?lat=0&lon=0&appid=2b82c23cac4b047755e6cb97561de11e&units=metric`)
+  const geoSuccess = pos => setWeatherApi(`https://api.openweathermap.org/data/2.5/onecall?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&appid=2b82c23cac4b047755e6cb97561de11e&units=metric`)
+  const geoError = err => console.warn(`ERROR(${err.code}): ${err.message}`)
   const getLocation = () => {
     if(navigator.geolocation){
       navigator.geolocation.getCurrentPosition(geoSuccess, geoError)
@@ -24,11 +24,10 @@ export default function WeatherBoard(){
       window.alert `Your browser does not support this feature`;
     }
   }
-
+  
   const [dailyData, setDailyData] = useState([])
   
   useEffect(() => {
-    const weatherApi = `https://api.openweathermap.org/data/2.5/onecall?lat=${currentCoords.lat}&lon=${currentCoords.lon}&appid=2b82c23cac4b047755e6cb97561de11e&units=metric`
     fetch(weatherApi)
     .then(response => {
       if (response.ok){
@@ -40,7 +39,8 @@ export default function WeatherBoard(){
         setDailyData(() => data.daily)   
       })
       .catch(error => console.error(error))
-  }, [])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [weatherApi])
     
     const dailyWeatherCards = dailyData.map(day => {
       const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -73,7 +73,7 @@ export default function WeatherBoard(){
             </Switch>
           </Col>
           <Col>
-            <LocalWeatherRequest requestCoords={() => getLocation()}></LocalWeatherRequest>
+            <LocalWeatherRequest requestCoords={() => getLocation}></LocalWeatherRequest>
           </Col>
         </Row>
       </Router>
